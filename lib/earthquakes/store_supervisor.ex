@@ -10,14 +10,14 @@ defmodule Earthquakes.StoreSupervisor do
 
   def init(_init_arg) do
     children = [
-      create_store(%Earthquake{location: "Test1", lat: 2.0, lng: 0.0, timestamp: DateTime.utc_now()}),
-      create_store(%Earthquake{location: "Test2", lat: 2.0, lng: 0.0, timestamp: DateTime.utc_now()})
+      add_earthquake(%Earthquake{location: "Test1", lat: 2.0, lng: 0.0, timestamp: DateTime.utc_now()}),
+      add_earthquake(%Earthquake{location: "Test2", lat: 2.0, lng: 0.0, timestamp: DateTime.utc_now()})
     ]
 
     Supervisor.init(children, strategy: :one_for_one)
   end
 
-  defp create_store(%Earthquake{} = store) do
+  defp add_earthquake(%Earthquake{} = store) do
     %{
       id: String.to_atom(store.location),
       start: {Earthquakes.EarthquakeServer, :start_link, [store]}
