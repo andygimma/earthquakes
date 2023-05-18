@@ -3,6 +3,9 @@ defmodule Earthquakes do
   Documentation for `Earthquakes`.
   """
 
+  @enforce_keys [:location, :lat, :lng]
+  defstruct [:location, :lat, :lng]
+
   @doc """
   Hello world.
 
