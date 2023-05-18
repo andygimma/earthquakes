@@ -4,7 +4,6 @@ defmodule Earthquakes.StoreSupervisor do
   alias Earthquakes.Earthquake
 
   def start_link(init_arg) do
-    IO.puts "1234555"
     Supervisor.start_link(__MODULE__, init_arg,  name: __MODULE__)
   end
 
