@@ -2,7 +2,6 @@ defmodule Earthquakes.EarthquakeServer do
   use GenServer
 
   alias Earthquakes.Earthquake
-  alias Earthquakes.StoreSupervisor
 
   def start_link(%Earthquake{} = earthquake) do
     GenServer.start_link(__MODULE__, earthquake, name: String.to_atom(earthquake.location))
@@ -50,6 +49,6 @@ defmodule Earthquakes.EarthquakeServer do
   end
 
   def calculate_distance(%Earthquake{} = earthquake, lat, lng) do
-    :rand.uniform(1000)
+    Geocalc.distance_between([earthquake.lat, earthquake.lng], [lat, lng])
   end
 end

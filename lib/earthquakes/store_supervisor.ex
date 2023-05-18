@@ -9,8 +9,8 @@ defmodule Earthquakes.StoreSupervisor do
 
   def init(_init_arg) do
     children = [
-      add_earthquake(%Earthquake{location: "Test1", lat: 2.0, lng: 0.0, timestamp: DateTime.utc_now()}),
-      add_earthquake(%Earthquake{location: "Test2", lat: 2.0, lng: 0.0, timestamp: DateTime.utc_now()})
+      add_earthquake(%Earthquake{location: "Test1", lat: 2.0, lng: 2.0, timestamp: DateTime.utc_now()}),
+      add_earthquake(%Earthquake{location: "Test2", lat: 0.0, lng: 0.0, timestamp: DateTime.utc_now()})
     ]
 
     Supervisor.init(children, strategy: :one_for_one)
