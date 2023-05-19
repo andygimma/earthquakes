@@ -1,21 +1,29 @@
 # Earthquakes
 
-**TODO: Add description**
+Given a latitude and longitude, order the most recent earthquakes by distance.
 
-## Installation
+## Goals
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `earthquakes` to your list of dependencies in `mix.exs`:
+My goal here was to illustrate competence in several Elixir paradigms.
 
-```elixir
-def deps do
-  [
-    {:earthquakes, "~> 0.1.0"}
-  ]
-end
-```
+* OTP including supervisors
+* Functional programming and use of Enum
+* Clean code
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/earthquakes>.
+## Tradeoffs and considerations
 
+In a production app, I would use postgres for persistance and the PostGIS extension to efficiently do the distance calculations. I would however keep the GenServer as a cache.
+
+## Getting started
+
+Run these commands:
+
+* `mix deps.get`
+* `iex -S mix`
+* `Earthquakes.EarthquakeServer.list_all 40.7484, 73.9857`
+
+NOTE:: The params are the latitude and longitude of the empire state building and can be changed to any coordinates.
+
+## Thank you
+
+Thanks for taking the time to review this code. If there are any questions please email me or call me any time to discuss them.
