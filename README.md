@@ -2,6 +2,10 @@
 
 Given a latitude and longitude, order the most recent earthquakes by distance.
 
+
+https://github.com/andygimma/earthquakes/assets/2815544/0b128ad3-0682-4178-a3ae-1f8455b69692
+
+
 ## Goals
 
 My goal here was to illustrate competence in several Elixir paradigms.
@@ -22,7 +26,8 @@ Run these commands:
 * `iex -S mix`
 * `Earthquakes.EarthquakeServer.list_all 40.7484, 73.9857`
 
-NOTE:: The params are the latitude and longitude of the empire state building and can be changed to any coordinates.
+NOTE: The params are the latitude and longitude of the empire state building and can be changed to any coordinates.
+WARNING: The app may not work if the API has a malformatted response. I did not want to experience scope creep in this coding sample. I added the video above as a proof-of-concept.
 
 ## Thank you
 
