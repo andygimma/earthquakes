@@ -49,6 +49,9 @@ defmodule Earthquakes.EarthquakeServer do
   end
 
   def calculate_distance(%Earthquake{} = earthquake, lat, lng) do
-    Geocalc.distance_between([earthquake.lat, earthquake.lng], [lat, lng])
+    formatted_lat = Decimal.new(earthquake.lat)
+    formatted_lng = Decimal.new(earthquake.lng)
+
+    Geocalc.distance_between([formatted_lat, formatted_lng], [lat, lng])
   end
 end

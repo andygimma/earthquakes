@@ -3,6 +3,10 @@ defmodule Earthquakes.StoreSupervisor do
 
   alias Earthquakes.Earthquake
 
+  @url "https://everyearthquake.p.rapidapi.com/earthquakes"
+  @api_key "bdeed85c45mshc824fcec60a8d85p1c2370jsn2244d33b9202"
+  @host "everyearthquake.p.rapidapi.com"
+
   def start_link(init_arg) do
     Supervisor.start_link(__MODULE__, init_arg,  name: __MODULE__)
   end
@@ -14,16 +18,7 @@ defmodule Earthquakes.StoreSupervisor do
       |> format_earthquakes()
       |> Enum.map(fn earthquake -> add_earthquake(earthquake) end)
 
-
-    IO.inspect(earthquakes, label: "EEEEEEEEE")
-    children = [
-      add_earthquake(%Earthquake{location: "Test1", lat: 2.0, lng: 2.0, timestamp: DateTime.utc_now()}),
-      add_earthquake(%Earthquake{location: "Test2", lat: 0.0, lng: 0.0, timestamp: DateTime.utc_now()})
-    ]
-
-    IO.inspect(children, label: "CHILDREN")
-
-    Supervisor.init(earthquakes, strategy: :one_for_one)
+    Supervisor.init(Enum.take(earthquakes, 5), strategy: :one_for_one)
   end
 
   defp add_earthquake(%Earthquake{} = store) do
@@ -34,17 +29,14 @@ defmodule Earthquakes.StoreSupervisor do
   end
 
   defp fetch_earthquakes() do
-    url = "https://everyearthquake.p.rapidapi.com/earthquakes"
-    api_key = "bdeed85c45mshc824fcec60a8d85p1c2370jsn2244d33b9202"
-    host = "everyearthquake.p.rapidapi.com"
     headers = [
-      {"X-RapidAPI-Key", api_key},
-      {"X-RapidAPI-Host", host}
+      {"X-RapidAPI-Key", @api_key},
+      {"X-RapidAPI-Host", @host}
     ]
 
     params = [
       start: "1",
-      count: "100",
+      count: "3",
       type: "earthquake",
       latitude: "33.962523",
       longitude: "-118.3706975",
@@ -56,7 +48,7 @@ defmodule Earthquakes.StoreSupervisor do
 
 
 
-    res = HTTPoison.get!(url, headers, params)
+    res = HTTPoison.get!(@url, headers, params)
 
     Jason.decode!(res.body)
   end
